@@ -1,0 +1,55 @@
+# 依赖管理文件
+node_modules/
+bower_components/
+jspm_packages/
+
+# 构建输出目录
+dist/
+build/
+.nyc_output/
+coverage/
+
+# 日志文件
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# 运行时文件
+*.pid
+*.seed
+*.pid.lock
+
+# IDE和编辑器文件
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# 系统文件
+.DS_Store
+Thumbs.db
+
+# 环境变量文件
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# 缓存目录
+.npm
+.eslintcache
+
+# 临时文件
+*.tmp
+*.temp
+
+# 压缩文件
+*.zip
+*.tar.gz
+*.rar
+
+# 配置文件
+.project.config.json
+
