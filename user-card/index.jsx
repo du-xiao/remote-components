@@ -1,37 +1,82 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { createRoot } from "react-dom/client";
-import { Card, Descriptions, Avatar } from "antd";
+import { Card, Descriptions, Avatar, List } from "antd";
 import { UserOutlined } from "@ant-design/icons";
-import "antd/dist/reset.css"; // 浏览器可直接用 CDN 也可以引入
+import "antd/dist/reset.css"; // 全局引入 AntD 样式
 
 // 内部 React 组件
 function UserCard({ name, age }) {
+  const [height, setHeight] = useState(260);
+
+  const data = [
+    { title: "Ant Design Title 1" },
+    { title: "Ant Design Title 2" },
+    { title: "Ant Design Title 3" },
+    { title: "Ant Design Title 4" },
+  ];
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setHeight((prev) => prev + 10); // 每秒增加高度10px
+    }, 1000);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <Card
       style={{
         width: 260,
-        borderRadius: 12,
-        boxShadow: "0 4px 12px rgba(0,0,0,0.08)",
+        height: height,
+        borderRadius: 16,
+        boxShadow: "0 8px 20px rgba(0,0,0,0.15)",
+        transition: "height 0.5s ease",
+        background: "linear-gradient(135deg, #f6d365 0%, #fda085 100%)",
+        overflow: "hidden",
       }}
     >
       <div style={{ textAlign: "center", marginBottom: 16 }}>
         <Avatar size={64} icon={<UserOutlined />} />
-        <h3 style={{ marginTop: 12 }}>{name}</h3>
+        <h3 style={{ marginTop: 12, color: "#fff" }}>{name}</h3>
       </div>
 
-      <Descriptions size="small" column={1} bordered>
-        <Descriptions.Item label="Name">{name}</Descriptions.Item>
-        <Descriptions.Item label="Age">{age}</Descriptions.Item>
+      <Descriptions
+        size="small"
+        column={1}
+        bordered
+        style={{
+          background: "rgba(255,255,255,0.2)",
+          borderRadius: 8,
+        }}
+      >
+        <Descriptions.Item label="Name" style={{ color: "#fff" }}>
+          {name}
+        </Descriptions.Item>
+        <Descriptions.Item label="Age" style={{ color: "#fff" }}>
+          {age}
+        </Descriptions.Item>
       </Descriptions>
+
+      <List
+        itemLayout="horizontal"
+        dataSource={data}
+        renderItem={(item) => (
+          <List.Item>
+            <List.Item.Meta
+              avatar={<Avatar icon={<UserOutlined />} />}
+              title={<a href="https://ant.design">{item.title}</a>}
+              description="Ant Design, a design language for background applications, is refined by Ant UED Team"
+            />
+          </List.Item>
+        )}
+      />
     </Card>
   );
 }
 
-// WebComponent 定义
+// WebComponent 定义（不使用 shadow DOM）
 class UserCardElement extends HTMLElement {
   constructor() {
     super();
-    this.attachShadow({ mode: "open" });
   }
 
   static get observedAttributes() {
@@ -39,6 +84,9 @@ class UserCardElement extends HTMLElement {
   }
 
   connectedCallback() {
+    if (!this.root) {
+      this.root = createRoot(this);
+    }
     this.renderReact();
   }
 
@@ -49,12 +97,6 @@ class UserCardElement extends HTMLElement {
   renderReact() {
     const name = this.getAttribute("name") || "unknown";
     const age = this.getAttribute("age") || "0";
-
-    if (!this.root) {
-      const container = document.createElement("div");
-      this.shadowRoot.appendChild(container);
-      this.root = createRoot(container);
-    }
 
     this.root.render(<UserCard name={name} age={age} />);
   }

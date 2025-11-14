@@ -2,6 +2,7 @@
   "name": "user-card",
   "version": "1.0.0",
   "scripts": {
+    "dev": "vite",
     "build": "vite build"
   },
   "dependencies": {
