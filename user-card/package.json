@@ -1,1 +1,16 @@
-{"name":"user-card","version":"1.0.0","scripts":{"build":"vite build"},"devDependencies":{"vite":"^7.2.2"}}
+{
+  "name": "user-card",
+  "version": "1.0.0",
+  "scripts": {
+    "build": "vite build"
+  },
+  "dependencies": {
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "antd": "^5.21.0"
+  },
+  "devDependencies": {
+    "vite": "^7.2.2",
+    "@vitejs/plugin-react": "^4.3.0"
+  }
+}
