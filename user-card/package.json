@@ -1,7 +1,1 @@
-{
-"name": "user-card",
-"version": "1.0.0",
-"scripts": {
-"build": "vite build"
-}
-}
+{"name":"user-card","version":"1.0.0","scripts":{"build":"vite build"},"devDependencies":{"vite":"^7.2.2"}}
