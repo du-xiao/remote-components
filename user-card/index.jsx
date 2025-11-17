@@ -5,7 +5,7 @@ import { UserOutlined } from "@ant-design/icons";
 import "antd/dist/reset.css"; // 全局引入 AntD 样式
 
 // 内部 React 组件
-function UserCard({ name, age }) {
+function UserCard({ name, age,listData }) {
   const [height, setHeight] = useState(260);
 
   const data = [
@@ -58,7 +58,7 @@ function UserCard({ name, age }) {
 
       <List
         itemLayout="horizontal"
-        dataSource={data}
+        dataSource={listData}
         renderItem={(item) => (
           <List.Item>
             <List.Item.Meta
@@ -77,10 +77,20 @@ function UserCard({ name, age }) {
 class UserCardElement extends HTMLElement {
   constructor() {
     super();
+     this._data = []; // 内部存储
   }
 
   static get observedAttributes() {
     return ["name", "age"];
+  }
+
+  set data(val) {
+    this._data = val;
+    this.renderReact();
+  }
+
+  get data() {
+    return this._data;
   }
 
   connectedCallback() {
@@ -98,7 +108,7 @@ class UserCardElement extends HTMLElement {
     const name = this.getAttribute("name") || "unknown";
     const age = this.getAttribute("age") || "0";
 
-    this.root.render(<UserCard name={name} age={age} />);
+    this.root.render(<UserCard name={name} age={age} listData={this._data}/>);
   }
 }
 
