@@ -77,10 +77,9 @@ class UserCardElement extends HTMLElement {
     return ["name", "age"];
   }
 
-
   set listData(val) {
-    this._listData = val;
-    this.render();
+    this._listData = val || [];
+    this.renderReact();
   }
 
   get listData() {
