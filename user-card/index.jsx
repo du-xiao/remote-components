@@ -71,6 +71,7 @@ class UserCardElement extends HTMLElement {
   constructor() {
     super();
     this._listData = [];
+    this.root = null; // 显式声明一下
   }
 
   static get observedAttributes() {
@@ -79,28 +80,41 @@ class UserCardElement extends HTMLElement {
 
   set listData(val) {
     this._listData = val || [];
-    this.renderReact();
+    this.renderReact(); 
   }
 
   get listData() {
     return this._listData;
   }
+
   connectedCallback() {
-    if (!this.root) {
-      this.root = createRoot(this);
-    }
-    this.renderReact();
+    this.renderReact(); 
   }
 
   attributeChangedCallback() {
     this.renderReact();
   }
 
+  disconnectedCallback() {
+    // 可选：卸载 React
+    if (this.root) {
+      this.root.unmount();
+      this.root = null;
+    }
+  }
+
   renderReact() {
+    // 🔴 关键：懒初始化 root
+    if (!this.root) {
+      this.root = createRoot(this);
+    }
+
     const name = this.getAttribute("name") || "unknown";
     const age = this.getAttribute("age") || "0";
 
-    this.root.render(<UserCard name={name} age={age} listData={this._listData}/>);
+    this.root.render(
+      <UserCard name={name} age={age} listData={this._listData} />
+    );
   }
 }
 
