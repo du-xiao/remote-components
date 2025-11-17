@@ -5,15 +5,8 @@ import { UserOutlined } from "@ant-design/icons";
 import "antd/dist/reset.css"; // 全局引入 AntD 样式
 
 // 内部 React 组件
-function UserCard({ name, age,listData }) {
+function UserCard({ name, age,listData = [] }) {
   const [height, setHeight] = useState(260);
-
-  const data = [
-    { title: "Ant Design Title 1" },
-    { title: "Ant Design Title 2" },
-    { title: "Ant Design Title 3" },
-    { title: "Ant Design Title 4" },
-  ];
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -77,22 +70,22 @@ function UserCard({ name, age,listData }) {
 class UserCardElement extends HTMLElement {
   constructor() {
     super();
-     this._data = []; // 内部存储
+    this._listData = [];
   }
 
   static get observedAttributes() {
     return ["name", "age"];
   }
 
-  set data(val) {
-    this._data = val;
-    this.renderReact();
+
+  set listData(val) {
+    this._listData = val;
+    this.render();
   }
 
-  get data() {
-    return this._data;
+  get listData() {
+    return this._listData;
   }
-
   connectedCallback() {
     if (!this.root) {
       this.root = createRoot(this);
@@ -108,7 +101,7 @@ class UserCardElement extends HTMLElement {
     const name = this.getAttribute("name") || "unknown";
     const age = this.getAttribute("age") || "0";
 
-    this.root.render(<UserCard name={name} age={age} listData={this._data}/>);
+    this.root.render(<UserCard name={name} age={age} listData={this._listData}/>);
   }
 }
 
