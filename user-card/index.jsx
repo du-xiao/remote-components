@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from "react";
-import { createRoot } from "react-dom/client";
+import { useEffect, useState } from "react";
 import { Card, Descriptions, Avatar, List } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 import "antd/dist/reset.css"; // 全局引入 AntD 样式
 
 // 内部 React 组件
-function UserCard({ name, age,listData = [] }) {
+export default function UserCard({ name, age,listData = [] }) {
   const [height, setHeight] = useState(260);
 
   useEffect(() => {
@@ -65,57 +64,3 @@ function UserCard({ name, age,listData = [] }) {
     </Card>
   );
 }
-
-// WebComponent 定义（不使用 shadow DOM）
-class UserCardElement extends HTMLElement {
-  constructor() {
-    super();
-    this._listData = [];
-    this.root = null; // 显式声明一下
-  }
-
-  static get observedAttributes() {
-    return ["name", "age"];
-  }
-
-  set listData(val) {
-    this._listData = val || [];
-    this.renderReact(); 
-  }
-
-  get listData() {
-    return this._listData;
-  }
-
-  connectedCallback() {
-    this.renderReact(); 
-  }
-
-  attributeChangedCallback() {
-    this.renderReact();
-  }
-
-  disconnectedCallback() {
-    // 可选：卸载 React
-    if (this.root) {
-      this.root.unmount();
-      this.root = null;
-    }
-  }
-
-  renderReact() {
-    // 🔴 关键：懒初始化 root
-    if (!this.root) {
-      this.root = createRoot(this);
-    }
-
-    const name = this.getAttribute("name") || "unknown";
-    const age = this.getAttribute("age") || "0";
-
-    this.root.render(
-      <UserCard name={name} age={age} listData={this._listData} />
-    );
-  }
-}
-
-customElements.define("user-card", UserCardElement);

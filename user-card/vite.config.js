@@ -1,27 +1,18 @@
-import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react";
-import replace from "@rollup/plugin-replace";
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
 
 export default defineConfig({
-  plugins: [
-    react(),
-    replace({
-      preventAssignment: true,
-      "process.env.NODE_ENV": JSON.stringify("production"), // 防止 process 报错
-    }),
-  ],
+  plugins: [react()],
   build: {
     lib: {
-      entry: "index.jsx",
-      name: "UserCardComponent",
-      formats: ["iife"],               // 单文件 IIFE
-      fileName: () => "user-card.js",  // 输出文件名
+      entry: './index.js',
+      name: 'UserCard',
+      fileName: 'remote-user-card',
+      formats: ['es'],  // ⬅️ 最关键：输出 ESM
     },
-    outDir: "dist",
     rollupOptions: {
-      output: {
-        inlineDynamicImports: true,    // 所有 import 打包进一个文件
-      },
+      // **不要将 React 打包进去，让主应用来共享**
+      external: ['react', 'react-dom'],
     },
   },
 });
