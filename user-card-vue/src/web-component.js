@@ -1,4 +1,4 @@
-import { createApp, h, reactive, watch } from "vue";
+import { createApp, h, reactive } from "vue";
 import UserCard from "./components/UserCard.vue";
 import ElementPlus from "element-plus";
 import "element-plus/dist/index.css";
@@ -30,10 +30,6 @@ class UserCardElement extends HTMLElement {
       }).use(ElementPlus);
 
       this.vueApp.mount(this);
-
-      watch(this._props, () => {
-        this.vueApp._instance.update();
-      }, { deep: true });
     }
   }
 
