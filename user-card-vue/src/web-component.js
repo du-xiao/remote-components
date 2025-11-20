@@ -1,7 +1,7 @@
 import { createApp, h } from "vue";
 import UserCard from "./components/UserCard.vue";
 import ElementPlus from "element-plus";
-import "element-plus/dist/index.css";
+import "element-plus/dist/index.css"; // 会被 vite-plugin-css-injected-by-js 内联
 
 class UserCardElement extends HTMLElement {
   constructor() {
