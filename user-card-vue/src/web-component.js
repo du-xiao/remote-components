@@ -49,4 +49,4 @@ class UserCardElement extends HTMLElement {
   }
 }
 
-customElements.define("user-card", UserCardElement);
+customElements.define("user-card-vue", UserCardElement);
