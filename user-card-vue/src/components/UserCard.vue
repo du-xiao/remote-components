@@ -10,16 +10,8 @@
       overflow: 'hidden'
     }"
   >
-    <div style="text-align:center; margin-bottom:16px;">
-      <el-avatar :size="64" src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png" />
-      <h3 style="margin-top:12px;">{{ name }}</h3>
-    </div>
-
-    <el-descriptions :column="1" size="small"  border>
-      <el-descriptions-item label="Name"><span >{{ name }}</span></el-descriptions-item>
-      <el-descriptions-item label="Age"><span >{{ age }}</span></el-descriptions-item>
-    </el-descriptions>
-
+  <UserInfo :name="name" :age="age" />
+  <UserChart :data="chartData" />
     <div style="margin-top:16px;">
       <div v-for="item in listData" :key="item.title" style="display:flex; align-items:center; padding:8px 0;">
         <el-avatar src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png" style="margin-right:8px;" />
@@ -34,11 +26,13 @@
 
 <script setup>
 import { ref, onMounted, onBeforeUnmount } from "vue";
-
+import UserInfo from "./UserInfo.vue";
+import UserChart from "./UserChart.vue";
 const props = defineProps({
   name: { type: String, default: "zzzz" },
   age: { type: [Number, String], default: 0 },
-  listData: { type: Array, default: () => [] }
+  listData: { type: Array, default: () => [] },
+  chartData: { type: Array, default: () => [10, 20, 30, 40, 50] }
 });
 
 const height = ref(260);
