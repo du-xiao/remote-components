@@ -14,7 +14,7 @@ export default defineConfig({
     lib: {
       entry: "index.jsx",
       name: "UserCardComponent",
-      formats: ["iife"],               // 单文件 IIFE
+      formats: ["es"],               // 单文件 IIFE
       fileName: () => "user-card.js",  // 输出文件名
     },
     outDir: "dist",
