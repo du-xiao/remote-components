@@ -12,12 +12,12 @@
   >
     <div style="text-align:center; margin-bottom:16px;">
       <el-avatar :size="64" src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png" />
-      <h3 style="margin-top:12px; color:#fff">{{ name }}</h3>
+      <h3 style="margin-top:12px;">{{ name }}</h3>
     </div>
 
     <el-descriptions :column="1" size="small"  border>
-      <el-descriptions-item label="Name"><span style="color:#fff">{{ name }}</span></el-descriptions-item>
-      <el-descriptions-item label="Age"><span style="color:#fff">{{ age }}</span></el-descriptions-item>
+      <el-descriptions-item label="Name"><span >{{ name }}</span></el-descriptions-item>
+      <el-descriptions-item label="Age"><span >{{ age }}</span></el-descriptions-item>
     </el-descriptions>
 
     <div style="margin-top:16px;">
