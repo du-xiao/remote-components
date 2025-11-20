@@ -15,13 +15,17 @@ class UserCardElement extends HTMLElement {
   }
 
   attributeChangedCallback(attr, oldVal, newVal) {
-    if (attr === "name") this._props.name = newVal;
-    if (attr === "age") this._props.age = Number(newVal);
+    this._props[attr] = attr === "age" ? Number(newVal) : newVal;
   }
 
-  set listData(val) {
-    this._props.listData = val || [];
-  }
+  set name(val) { this._props.name = val; }
+  get name() { return this._props.name; }
+
+  set age(val) { this._props.age = Number(val); }
+  get age() { return this._props.age; }
+
+  set listData(val) { this._props.listData = val || []; }
+  get listData() { return this._props.listData; }
 
   connectedCallback() {
     if (!this.vueApp) {
