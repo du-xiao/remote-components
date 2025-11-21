@@ -2,7 +2,7 @@
   <el-card
     :style="{
       width: '260px',
-      height: height + 'px',
+      // height: height + 'px',
       borderRadius: '16px',
       boxShadow: '0 8px 20px rgba(0,0,0,0.15)',
       transition: 'height 0.5s ease',
@@ -11,7 +11,7 @@
     }"
   >
   <UserInfo :name="name" :age="age" />
-  <UserChart :data="chartData" />
+  <UserChart :data="chartData" v-if="is_chart" />
     <div style="margin-top:16px;">
       <div v-for="item in listData" :key="item.title" style="display:flex; align-items:center; padding:8px 0;">
         <el-avatar src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png" style="margin-right:8px;" />
@@ -37,11 +37,12 @@ const props = defineProps({
 
 const height = ref(260);
 let timer = null;
-
+const is_chart = ref(false);
 onMounted(() => {
   timer = setInterval(() => {
-    height.value += 10;
-  }, 1000);
+    // height.value += 10;
+    is_chart.value = true;
+  }, 5000);
 });
 
 onBeforeUnmount(() => {
